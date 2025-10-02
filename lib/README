@@ -1,46 +1,28 @@
+# ESP32 LED Control with OneButton
 
-This directory is intended for project specific (private) libraries.
-PlatformIO will compile them to static libraries and link into the executable file.
+## Giới thiệu
+Dự án này sử dụng **ESP32** và thư viện [OneButton](https://github.com/mathertel/OneButton) để điều khiển LED bằng nút nhấn.  
+Mục tiêu là minh họa cách nhận biết các loại thao tác khác nhau trên nút nhấn (single click, double click) và gán chúng với các chức năng khác nhau.
 
-The source code of each library should be placed in a separate directory
-("lib/your_library_name/[Code]").
+## Chức năng chính
+- **Single click** (nhấn 1 lần): Bật hoặc tắt LED.
+- **Double click** (nhấn nhanh 2 lần): Bật/tắt chế độ LED nhấp nháy (blink mode).
+- LED sẽ nhấp nháy với chu kỳ 500ms khi ở chế độ blink.
 
-For example, see the structure of the following example libraries `Foo` and `Bar`:
+## Cấu hình
+Trong file `platformio.ini` bạn cần định nghĩa chân LED và nút nhấn:
 
-|--lib
-|  |
-|  |--Bar
-|  |  |--docs
-|  |  |--examples
-|  |  |--src
-|  |     |- Bar.c
-|  |     |- Bar.h
-|  |  |- library.json (optional. for custom build options, etc) https://docs.platformio.org/page/librarymanager/config.html
-|  |
-|  |--Foo
-|  |  |- Foo.c
-|  |  |- Foo.h
-|  |
-|  |- README --> THIS FILE
-|
-|- platformio.ini
-|--src
-   |- main.c
-
-Example contents of `src/main.c` using Foo and Bar:
-```
-#include <Foo.h>
-#include <Bar.h>
-
-int main (void)
-{
-  ...
-}
-
-```
-
-The PlatformIO Library Dependency Finder will find automatically dependent
-libraries by scanning project source files.
-
-More information about PlatformIO Library Dependency Finder
-- https://docs.platformio.org/page/librarymanager/ldf.html
+```ini
+[env:esp32doit-devkit-v1]
+platform = espressif32
+framework = arduino
+monitor_speed = 115200
+upload_speed = 921600
+lib_deps =
+    mathertel/OneButton @ ^2.6.1
+board = esp32doit-devkit-v1
+build_flags =
+    -D BTN_PIN=0U
+    -D BTN_ACT=LOW
+    -D LED_PIN=2U
+    -D LED_ACT=HIGH

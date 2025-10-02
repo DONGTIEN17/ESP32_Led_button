@@ -5,14 +5,14 @@
 LED led(LED_PIN, LED_ACT);
 
 void btnPush();
-void btnHold();
+void btnDoubleClick();
 OneButton button(BTN_PIN, !BTN_ACT);
 
 void setup()
 {
     led.off();
-    button.attachClick(btnPush);
-    button.attachLongPressStart(btnHold);
+    button.attachClick(btnPush);           // Single click → ON/OFF
+    button.attachDoubleClick(btnDoubleClick); // Double click → BLINK
 }
 
 void loop()
@@ -26,7 +26,7 @@ void btnPush()
     led.flip();
 }
 
-void btnHold()
+void btnDoubleClick()
 {
     led.blink(200);
 }
